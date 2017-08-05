@@ -133,13 +133,13 @@ $(document).ready(function() {
 			var wasteScore = newspaperScore + alumTinScore;
 
 			// calculate total score and round to nearest whole integer
-			totalScore = Math.round(energyScore + travelScore + wasteScore);
+			totalScore = ((energyScore + travelScore + wasteScore))/1000;
 			var formattedScore = totalScore.toLocaleString("en");
 			// console.log(totalScore);
 //graph display
 //graph display
-function drawChart() {
-        var data = google.visualization.arrayToDataTable([
+function drawChart(energyScore,travelScore,wasteScore) {
+	        var data = google.visualization.arrayToDataTable([
           ['Scores', 'Core Activities'],
           ['Energy Score',     energyScore],
           ['Travel Score',      travelScore],
@@ -147,8 +147,8 @@ function drawChart() {
         ]);
 
         var options = {
-          title: 'My Daily Activities',
-          pieHole: 0.4,
+          title: 'Division of Scores',
+          pieHole: 0.3,
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
@@ -158,7 +158,7 @@ function drawChart() {
 
 			// display results
 			$("#results").show();
-
+			drawChart(energyScore,travelScore,wasteScore);
 			// refresh page when recalculate button clicked
 			$("#recalculate-btn").on("click", function() {
 				location.reload();
@@ -186,7 +186,6 @@ function drawChart() {
 			}
 		} else {
 			calculateAndDisplayScore();
-			drawChart();
 		}
 	});	
 });
